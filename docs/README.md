@@ -18,6 +18,7 @@ The short version: HTTP-to-report generation with lightweight finding tracking.
 6. `API.md`
 7. `SECURITY.md`
 8. `UI_DIRECTION.md`
+8. `UI_CONCEPT.md`
 9. `ROADMAP.md`
 10. `TODO.md`
 
