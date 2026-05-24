@@ -1,6 +1,11 @@
 import { and, eq, isNull } from "drizzle-orm";
-import { db, type Database } from "./client";
+import { db, pool, type Database } from "./client";
 import { reportTemplates } from "./schema/report-templates.schema";
+
+declare const process: {
+  argv: string[];
+  exitCode?: number;
+};
 
 const DEFAULT_REPORT_STRUCTURE = `## Summary
 
@@ -102,6 +107,9 @@ export const DEFAULT_REPORT_TEMPLATES = [
 ] as const;
 
 export async function seedDefaultReportTemplates(database: Database = db) {
+  let inserted = 0;
+  let skipped = 0;
+
   for (const template of DEFAULT_REPORT_TEMPLATES) {
     const existing = await database.query.reportTemplates.findFirst({
       where: and(
@@ -112,6 +120,7 @@ export async function seedDefaultReportTemplates(database: Database = db) {
     });
 
     if (existing) {
+      skipped += 1;
       continue;
     }
 
@@ -120,6 +129,29 @@ export async function seedDefaultReportTemplates(database: Database = db) {
       userId: null,
       isDefault: true,
     });
+
+    inserted += 1;
   }
+
+  return {
+    inserted,
+    skipped,
+    total: DEFAULT_REPORT_TEMPLATES.length,
+  };
 }
 
+if (process.argv[1]?.endsWith("seed.ts")) {
+  try {
+    const result = await seedDefaultReportTemplates();
+
+    console.log(
+      `Seeded default report templates: ${result.inserted} inserted, ${result.skipped} skipped, ${result.total} total.`,
+    );
+  } catch (error) {
+    console.error("Failed to seed default report templates.");
+    console.error(error instanceof Error ? error.message : error);
+    process.exitCode = 1;
+  } finally {
+    await pool.end();
+  }
+}

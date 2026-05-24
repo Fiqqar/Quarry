@@ -44,7 +44,7 @@
 - [x] Create relations
 - [x] Generate migration
 - [x] Run migration
-- [ ] Seed default templates
+- [x] Seed default templates
 
 ## API Foundation
 
