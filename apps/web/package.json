@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "@quarry/web",
   "type": "module",
   "private": true,
   "scripts": {

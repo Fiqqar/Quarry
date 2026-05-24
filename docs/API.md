@@ -38,8 +38,8 @@ Request:
 
 ```json
 {
-  "name": "Pepeny",
-  "email": "pepeny@example.com",
+  "name": "Quarry User",
+  "email": "user@example.com",
   "password": "strong-password"
 }
 ```
@@ -52,8 +52,8 @@ Response:
   "data": {
     "user": {
       "id": "user_123",
-      "email": "pepeny@example.com",
-      "name": "Pepeny"
+      "email": "user@example.com",
+      "name": "Quarry User"
     }
   }
 }
@@ -65,7 +65,7 @@ Request:
 
 ```json
 {
-  "email": "pepeny@example.com",
+  "email": "user@example.com",
   "password": "strong-password"
 }
 ```
@@ -78,8 +78,8 @@ Response:
   "data": {
     "user": {
       "id": "user_123",
-      "email": "pepeny@example.com",
-      "name": "Pepeny"
+      "email": "user@example.com",
+      "name": "Quarry User"
     }
   }
 }
@@ -107,8 +107,8 @@ Response:
   "success": true,
   "data": {
     "id": "user_123",
-    "email": "pepeny@example.com",
-    "name": "Pepeny"
+    "email": "user@example.com",
+    "name": "Quarry User"
   }
 }
 ```

@@ -1,15 +1,13 @@
-# Elysia with Bun runtime
+# Quarry API
 
-## Getting Started
-To get started with this template, simply paste this command into your terminal:
-```bash
-bun create elysia ./elysia-example
-```
+Elysia API for Quarry.
+
+This app owns backend routing, validation, authorization checks, redaction, report generation, and database access. The frontend should call this API instead of talking to the database directly.
 
 ## Development
-To start the development server run:
+
 ```bash
-bun run dev
+pnpm --filter @quarry/api dev
 ```
 
-Open http://localhost:3000/ with your browser to see the result.
+The MVP API is planned around `/api/v1`. See `../../docs/API.md` and `../../docs/ARCHITECTURE.md` before adding routes.

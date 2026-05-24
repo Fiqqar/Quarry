@@ -2,48 +2,48 @@
 
 ## Foundation
 
-- [ ] Create `quarry` repository
-- [ ] Initialize pnpm workspace
-- [ ] Add Turbo
-- [ ] Create root `.gitignore`
-- [ ] Create root `.env.example`
-- [ ] Create `docker-compose.yml`
-- [ ] Create `apps/web`
-- [ ] Create `apps/api`
-- [ ] Create `packages/db`
-- [ ] Create `packages/shared`
-- [ ] Create `packages/config`
-- [ ] Add root `README.md`
-- [ ] Add docs folder
+- [x] Create `quarry` repository
+- [x] Initialize pnpm workspace
+- [x] Add Turbo
+- [x] Create root `.gitignore`
+- [x] Create root `.env.example`
+- [x] Create `docker-compose.yml`
+- [x] Create `apps/web`
+- [x] Create `apps/api`
+- [x] Create `packages/db`
+- [x] Create `packages/shared`
+- [x] Create `packages/config`
+- [x] Add root `README.md`
+- [x] Add docs folder
 
 ## Shared Package
 
-- [ ] Add severity constants
-- [ ] Add priority constants
-- [ ] Add status constants
-- [ ] Add weakness constants
-- [ ] Add sensitive field constants
-- [ ] Add API response types
-- [ ] Add program types
-- [ ] Add finding types
-- [ ] Add HTTP artifact types
-- [ ] Add report types
-- [ ] Export all shared modules
+- [x] Add severity constants
+- [x] Add priority constants
+- [x] Add status constants
+- [x] Add weakness constants
+- [x] Add sensitive field constants
+- [x] Add API response types
+- [x] Add program types
+- [x] Add finding types
+- [x] Add HTTP artifact types
+- [x] Add report types
+- [x] Export all shared modules
 
 ## Database
 
-- [ ] Install Drizzle
-- [ ] Configure Drizzle
-- [ ] Configure database client
-- [ ] Create auth schema or Better Auth adapter tables
-- [ ] Create programs schema
-- [ ] Create findings schema
-- [ ] Create http_artifacts schema
-- [ ] Create report_templates schema
-- [ ] Create generated_reports schema
-- [ ] Create relations
-- [ ] Generate migration
-- [ ] Run migration
+- [x] Install Drizzle
+- [x] Configure Drizzle
+- [x] Configure database client
+- [x] Create auth schema or Better Auth adapter tables
+- [x] Create programs schema
+- [x] Create findings schema
+- [x] Create http_artifacts schema
+- [x] Create report_templates schema
+- [x] Create generated_reports schema
+- [x] Create relations
+- [x] Generate migration
+- [x] Run migration
 - [ ] Seed default templates
 
 ## API Foundation

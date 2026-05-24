@@ -1,75 +1,23 @@
-# Nuxt Minimal Starter
+# Quarry Web
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Nuxt frontend for Quarry.
+
+The web app is responsible for UI, routing, session display, HTTP evidence input, parsed artifact previews, and markdown report previews. Authorization decisions still belong to the API.
 
 ## Setup
 
-Make sure to install dependencies:
-
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+## Development
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+pnpm --filter @quarry/web dev
 ```
 
-## Production
+The default local URL is `http://localhost:3000`.
 
-Build the application for production:
+## Notes
 
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Do not store auth tokens in localStorage. Do not render raw unsanitized markdown. See `../../docs/SECURITY.md` before implementing report previews or HTTP artifact views.

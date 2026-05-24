@@ -2,12 +2,12 @@
 
 ## Current Phase
 
-Planning complete.
+Foundation is in progress. The monorepo, shared package, database schema, and first migration are already in place.
 
 Next phase:
 
 ```txt
-Project initialization and foundation setup
+API Foundation
 ```
 
 ## Phase 0: Foundation Decisions
@@ -56,6 +56,8 @@ subscription
 
 ## Phase 1: Init Monorepo
 
+Status: complete.
+
 Goal:
 
 Create project skeleton.
@@ -90,6 +92,8 @@ PostgreSQL can run locally
 
 ## Phase 2: Shared Package
 
+Status: complete.
+
 Goal:
 
 Create shared constants and types.
@@ -118,6 +122,8 @@ apps/web can import from packages/shared
 ```
 
 ## Phase 3: Database Setup
+
+Status: complete.
 
 Goal:
 

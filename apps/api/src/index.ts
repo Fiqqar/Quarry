@@ -1,7 +1,12 @@
 import { Elysia } from "elysia";
 
-const app = new Elysia().get("/", () => "Hello Elysia").listen(3000);
+const port = Number(Bun.env.API_PORT ?? 3001);
 
-console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
-);
+const app = new Elysia()
+  .get("/", () => ({
+    name: "quarry-api",
+    status: "ok",
+  }))
+  .listen(port);
+
+console.log(`Quarry API listening on ${app.server?.hostname}:${app.server?.port}`);
