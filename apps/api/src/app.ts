@@ -1,4 +1,5 @@
 import { Elysia } from "elysia";
+import { authRoutes } from "./auth/auth.handler";
 import { errorHandler } from "./common/errors/error-handler";
 import { requestId } from "./common/middleware/request-id";
 import { success } from "./common/response/success";
@@ -15,4 +16,5 @@ export const app = new Elysia()
       status: "ok",
     }),
   )
+  .use(authRoutes)
   .group("/api/v1", (api) => api.use(healthRoutes));

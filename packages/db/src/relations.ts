@@ -4,14 +4,30 @@ import { generatedReports } from "./schema/generated-reports.schema";
 import { httpArtifacts } from "./schema/http-artifacts.schema";
 import { programs } from "./schema/programs.schema";
 import { reportTemplates } from "./schema/report-templates.schema";
-import { users } from "./schema/auth.schema";
+import { accounts, sessions, users } from "./schema/auth.schema";
 
 export const usersRelations = relations(users, ({ many }) => ({
+  sessions: many(sessions),
+  accounts: many(accounts),
   programs: many(programs),
   findings: many(findings),
   httpArtifacts: many(httpArtifacts),
   reportTemplates: many(reportTemplates),
   generatedReports: many(generatedReports),
+}));
+
+export const sessionsRelations = relations(sessions, ({ one }) => ({
+  user: one(users, {
+    fields: [sessions.userId],
+    references: [users.id],
+  }),
+}));
+
+export const accountsRelations = relations(accounts, ({ one }) => ({
+  user: one(users, {
+    fields: [accounts.userId],
+    references: [users.id],
+  }),
 }));
 
 export const programsRelations = relations(programs, ({ one, many }) => ({
@@ -68,4 +84,3 @@ export const generatedReportsRelations = relations(generatedReports, ({ one }) =
     references: [reportTemplates.id],
   }),
 }));
-

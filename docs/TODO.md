@@ -57,21 +57,21 @@
 - [x] Add success response helper
 - [x] Add error class
 - [x] Add global error handler
-- [ ] Add auth guard placeholder
+- [x] Add auth guard placeholder
 - [ ] Add rate limit placeholder
 
 ## Auth
 
-- [ ] Install Better Auth
-- [ ] Configure Better Auth
-- [ ] Create auth handler
-- [ ] Add session resolver
-- [ ] Add register route
-- [ ] Add login route
-- [ ] Add logout route
-- [ ] Add `/auth/me`
+- [x] Install Better Auth
+- [x] Configure Better Auth
+- [x] Create auth handler
+- [x] Add session resolver
+- [x] Add register route
+- [x] Add login route
+- [x] Add logout route
+- [x] Add `/auth/me`
 - [ ] Test secure cookie session
-- [ ] Ensure token is not stored in localStorage
+- [x] Ensure token is not stored in localStorage
 
 ## Programs API
 

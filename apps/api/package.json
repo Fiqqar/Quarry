@@ -8,6 +8,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@better-auth/drizzle-adapter": "^1.6.11",
+    "@quarry/db": "workspace:^",
+    "better-auth": "^1.6.11",
     "elysia": "latest"
   },
   "devDependencies": {
