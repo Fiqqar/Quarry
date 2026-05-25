@@ -2,7 +2,7 @@ import { Elysia } from "elysia";
 import { env } from "./env";
 
 const ALLOWED_METHODS = "GET,POST,PATCH,DELETE,OPTIONS";
-const ALLOWED_HEADERS = "Content-Type,Authorization";
+const ALLOWED_HEADERS = "Content-Type,Authorization,X-Request-Id";
 
 function isAllowedOrigin(origin: string | null) {
   if (!origin) {

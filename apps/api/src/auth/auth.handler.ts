@@ -18,6 +18,8 @@ function toSafeUser(user: NonNullable<Awaited<ReturnType<typeof getCurrentSessio
 
 export const authRoutes = new Elysia({ name: "auth-routes" })
   .get("/api/v1/auth/me", async ({ request, set }) => {
+    set.headers["Cache-Control"] = "no-store";
+
     const currentSession = await getCurrentSession(request);
 
     if (!currentSession) {
@@ -35,12 +37,13 @@ export const authRoutes = new Elysia({ name: "auth-routes" })
     return success({
       user: toSafeUser(currentSession.user),
       session: {
-        id: currentSession.session.id,
         expiresAt: currentSession.session.expiresAt,
       },
     });
   })
-  .all("/api/v1/auth/*", ({ request }) => {
+  .all("/api/v1/auth/*", ({ request, set }) => {
+    set.headers["Cache-Control"] = "no-store";
+
     if (!BETTER_AUTH_METHODS.has(request.method)) {
       throw new AppError({
         code: "METHOD_NOT_ALLOWED",

@@ -16,6 +16,11 @@ const DEFAULT_API_BASE_URL = "http://localhost:3001/api/v1";
 const DEFAULT_WEB_ORIGIN = "http://localhost:3000";
 const DEFAULT_DATABASE_URL = "postgres://postgres:postgres@localhost:5432/quarry";
 const DEV_AUTH_SECRET = "development-only-quarry-auth-secret-change-me";
+const PLACEHOLDER_AUTH_SECRETS = new Set([
+  DEV_AUTH_SECRET,
+  "replace-with-long-random-secret",
+  "change-me",
+]);
 
 function readString(name: string, fallback: string) {
   const value = Bun.env[name];
@@ -53,17 +58,55 @@ function readPort() {
   return port;
 }
 
-function validateProductionEnv(env: Env) {
+function readUrl(name: string, fallback: string) {
+  const value = readString(name, fallback);
+
+  try {
+    return new URL(value).toString().replace(/\/$/, "");
+  } catch {
+    throw new Error(`${name} must be a valid URL.`);
+  }
+}
+
+function readOrigin(name: string, fallback: string) {
+  const value = readString(name, fallback);
+
+  if (value === "*") {
+    throw new Error(`${name} must not be '*'.`);
+  }
+
+  try {
+    const url = new URL(value);
+
+    if (url.origin !== value.replace(/\/$/, "")) {
+      throw new Error(`${name} must be an origin without a path.`);
+    }
+
+    return url.origin;
+  } catch (error) {
+    if (error instanceof Error && error.message.includes("without a path")) {
+      throw error;
+    }
+
+    throw new Error(`${name} must be a valid origin.`);
+  }
+}
+
+function validateAuthSecret(env: Env) {
   if (!env.isProduction) {
     return;
   }
 
-  if (env.authSecret === DEV_AUTH_SECRET || env.authSecret.length < 32) {
-    throw new Error("AUTH_SECRET must be set to a strong secret in production.");
+  if (PLACEHOLDER_AUTH_SECRETS.has(env.authSecret) || env.authSecret.length < 32) {
+    throw new Error("AUTH_SECRET must be set to a strong non-placeholder secret in production.");
   }
+}
 
-  if (env.corsOrigin === "*") {
-    throw new Error("CORS_ORIGIN must not be '*' in production.");
+function validateProductionEnv(env: Env) {
+  validateAuthSecret(env);
+
+  if (!env.isProduction) {
+    return;
   }
 
   if (env.webOrigin.startsWith("http://")) {
@@ -73,6 +116,14 @@ function validateProductionEnv(env: Env) {
   if (env.corsOrigin.startsWith("http://")) {
     throw new Error("CORS_ORIGIN must use HTTPS in production.");
   }
+
+  if (env.apiBaseUrl.startsWith("http://")) {
+    throw new Error("API_BASE_URL must use HTTPS in production.");
+  }
+
+  if (env.databaseUrl === DEFAULT_DATABASE_URL) {
+    throw new Error("DATABASE_URL must be set explicitly in production.");
+  }
 }
 
 function loadEnv(): Env {
@@ -81,9 +132,9 @@ function loadEnv(): Env {
     nodeEnv,
     isProduction: nodeEnv === "production",
     apiPort: readPort(),
-    apiBaseUrl: readString("API_BASE_URL", DEFAULT_API_BASE_URL),
-    webOrigin: readString("WEB_ORIGIN", DEFAULT_WEB_ORIGIN),
-    corsOrigin: readString("CORS_ORIGIN", DEFAULT_WEB_ORIGIN),
+    apiBaseUrl: readUrl("API_BASE_URL", DEFAULT_API_BASE_URL),
+    webOrigin: readOrigin("WEB_ORIGIN", DEFAULT_WEB_ORIGIN),
+    corsOrigin: readOrigin("CORS_ORIGIN", DEFAULT_WEB_ORIGIN),
     databaseUrl: readString("DATABASE_URL", DEFAULT_DATABASE_URL),
     authSecret: readString("AUTH_SECRET", DEV_AUTH_SECRET),
   };
