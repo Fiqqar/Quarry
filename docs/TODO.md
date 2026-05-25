@@ -48,15 +48,15 @@
 
 ## API Foundation
 
-- [ ] Set up Elysia app
-- [ ] Add `/api/v1` prefix
-- [ ] Add health route
-- [ ] Add env validation
-- [ ] Add CORS config
-- [ ] Add request ID middleware
-- [ ] Add success response helper
-- [ ] Add error class
-- [ ] Add global error handler
+- [x] Set up Elysia app
+- [x] Add `/api/v1` prefix
+- [x] Add health route
+- [x] Add env validation
+- [x] Add CORS config
+- [x] Add request ID middleware
+- [x] Add success response helper
+- [x] Add error class
+- [x] Add global error handler
 - [ ] Add auth guard placeholder
 - [ ] Add rate limit placeholder
 

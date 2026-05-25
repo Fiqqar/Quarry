@@ -1,12 +1,6 @@
-import { Elysia } from "elysia";
+import { app } from "./app";
+import { env } from "./config/env";
 
-const port = Number(Bun.env.API_PORT ?? 3001);
+const server = app.listen(env.apiPort);
 
-const app = new Elysia()
-  .get("/", () => ({
-    name: "quarry-api",
-    status: "ok",
-  }))
-  .listen(port);
-
-console.log(`Quarry API listening on ${app.server?.hostname}:${app.server?.port}`);
+console.log(`Quarry API listening on ${server.server?.hostname}:${server.server?.port}`);
