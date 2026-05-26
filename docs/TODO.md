@@ -249,16 +249,16 @@
 
 - [ ] Add rate limit to auth endpoints
 - [ ] Add rate limit to parser endpoint
-- [ ] Lock CORS to frontend origin
-- [ ] Ensure secure cookie settings
+- [x] Lock CORS to frontend origin
+- [x] Ensure secure cookie settings
 - [ ] Sanitize markdown preview
-- [ ] Remove stack traces in production
-- [ ] Prevent raw HTTP artifact logging
-- [ ] Add max raw HTTP input size
-- [ ] Test IDOR prevention for programs
-- [ ] Test IDOR prevention for findings
-- [ ] Test IDOR prevention for artifacts
-- [ ] Test redaction utility
+- [x] Remove stack traces in production
+- [x] Prevent raw HTTP artifact logging
+- [x] Add max raw HTTP input size
+- [x] Test IDOR prevention for programs
+- [x] Test IDOR prevention for findings
+- [x] Test IDOR prevention for artifacts
+- [x] Test redaction utility
 
 ## Deployment
 

@@ -25,6 +25,14 @@ function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+function safeDecodeURIComponent(value: string) {
+  try {
+    return decodeURIComponent(value.replace(/\+/g, " "));
+  } catch {
+    return value;
+  }
+}
+
 export function isSensitiveKey(key: string) {
   const normalized = normalizeKey(key);
 
@@ -125,19 +133,107 @@ function redactJsonBody(body: string, namespace: string): RedactionResult<string
 }
 
 function redactFormBody(body: string, namespace: string): RedactionResult<string> {
-  const params = new URLSearchParams(body);
   const redactedFields: string[] = [];
+  const value = body
+    .split("&")
+    .map((part) => {
+      if (part.length === 0) {
+        return part;
+      }
 
-  for (const key of Array.from(params.keys())) {
-    if (isSensitiveKey(key)) {
-      params.set(key, REDACTED_VALUE);
+      const [rawKey, ...rawValue] = part.split("=");
+      const key = safeDecodeURIComponent(rawKey);
+
+      if (rawValue.length === 0) {
+        return rawKey;
+      }
+
+      const joinedValue = rawValue.join("=");
+
+      if (!isSensitiveKey(key)) {
+        return `${rawKey}=${joinedValue}`;
+      }
+
       redactedFields.push(`${namespace}.${key}`);
-    }
-  }
+
+      return `${rawKey}=${REDACTED_VALUE}`;
+    })
+    .join("&");
 
   return {
-    value: params.toString(),
+    value,
     redactedFields,
+  };
+}
+
+function redactQueryPart(part: string, namespace: string, redactedFields: string[]) {
+  if (part.length === 0) {
+    return part;
+  }
+
+  const [rawKey, ...rawValue] = part.split("=");
+  const key = safeDecodeURIComponent(rawKey);
+
+  if (isSensitiveKey(key)) {
+    redactedFields.push(`${namespace}.${key}`);
+
+    return `${rawKey}=${REDACTED_VALUE}`;
+  }
+
+  if (rawValue.length === 0) {
+    return rawKey;
+  }
+
+  return `${rawKey}=${rawValue.join("=")}`;
+}
+
+export function redactUrl(rawUrl: string, namespace: string): RedactionResult<string> {
+  const redactedFields: string[] = [];
+  const queryStart = rawUrl.indexOf("?");
+
+  if (queryStart === -1) {
+    return {
+      value: rawUrl,
+      redactedFields,
+    };
+  }
+
+  const hashStart = rawUrl.indexOf("#", queryStart);
+  const queryEnd = hashStart === -1 ? rawUrl.length : hashStart;
+  const prefix = rawUrl.slice(0, queryStart + 1);
+  const query = rawUrl.slice(queryStart + 1, queryEnd);
+  const suffix = hashStart === -1 ? "" : rawUrl.slice(hashStart);
+  const redactedQuery = query
+    .split("&")
+    .map((part) => redactQueryPart(part, namespace, redactedFields))
+    .join("&");
+
+  return {
+    value: `${prefix}${redactedQuery}${suffix}`,
+    redactedFields,
+  };
+}
+
+export function redactPlainText(text: string, namespace: string): RedactionResult<string> {
+  let value = text;
+  const redactedFields: string[] = [];
+  const fieldPattern = SENSITIVE_FIELDS.map(escapeRegExp).join("|");
+  const keyValuePattern = new RegExp(
+    `\\b(${fieldPattern})\\b\\s*([:=])\\s*([^\\s&;,\\n]+)`,
+    "gi",
+  );
+
+  value = value.replace(keyValuePattern, (match, key: string, separator: string) => {
+    if (isSensitiveKey(key)) {
+      redactedFields.push(`${namespace}.${key}`);
+    }
+
+    return `${key}${separator}${REDACTED_VALUE}`;
+  });
+
+  return {
+    value,
+    redactedFields: unique(redactedFields),
   };
 }
 
@@ -168,73 +264,6 @@ export function redactBody(
   }
 
   return redactPlainText(body, namespace);
-}
-
-export function redactUrl(rawUrl: string, namespace: string): RedactionResult<string> {
-  const redactedFields: string[] = [];
-  const queryStart = rawUrl.indexOf("?");
-
-  if (queryStart === -1) {
-    return {
-      value: rawUrl,
-      redactedFields,
-    };
-  }
-
-  const hashStart = rawUrl.indexOf("#", queryStart);
-  const queryEnd = hashStart === -1 ? rawUrl.length : hashStart;
-  const prefix = rawUrl.slice(0, queryStart + 1);
-  const query = rawUrl.slice(queryStart + 1, queryEnd);
-  const suffix = hashStart === -1 ? "" : rawUrl.slice(hashStart);
-  const redactedQuery = query
-    .split("&")
-    .map((part) => {
-      if (part.length === 0) {
-        return part;
-      }
-
-      const [rawKey, ...rawValue] = part.split("=");
-      const key = decodeURIComponent(rawKey.replace(/\+/g, " "));
-
-      if (isSensitiveKey(key)) {
-        redactedFields.push(`${namespace}.${key}`);
-
-        return `${rawKey}=${REDACTED_VALUE}`;
-      }
-
-      if (rawValue.length === 0) {
-        return rawKey;
-      }
-
-      return `${rawKey}=${rawValue.join("=")}`;
-    })
-    .join("&");
-
-  return {
-    value: `${prefix}${redactedQuery}${suffix}`,
-    redactedFields,
-  };
-}
-
-export function redactPlainText(text: string, namespace: string): RedactionResult<string> {
-  let value = text;
-  const redactedFields: string[] = [];
-  const fieldPattern = SENSITIVE_FIELDS.map(escapeRegExp).join("|");
-  const keyValuePattern = new RegExp(
-    `\\b(${fieldPattern})\\b\\s*([:=])\\s*([^\\s&;,\\n]+)`,
-    "gi",
-  );
-
-  value = value.replace(keyValuePattern, (match, key: string, separator: string) => {
-    redactedFields.push(`${namespace}.${key}`);
-
-    return `${key}${separator}${REDACTED_VALUE}`;
-  });
-
-  return {
-    value,
-    redactedFields: unique(redactedFields),
-  };
 }
 
 export function mergeRedactedFields(...fields: string[][]) {

@@ -1,3 +1,4 @@
+import { redactPlainText } from "../../common/utils/redact";
 import type { FindingRow } from "../findings/finding.repository";
 import type { HttpArtifactRow } from "../http-artifacts/http-artifact.repository";
 import type { ProgramRow } from "../programs/program.repository";
@@ -43,6 +44,10 @@ function codeBlock(value: string, language = "http") {
   return `~~~${language}\n${safeCode(value)}\n~~~`;
 }
 
+function safeEvidence(value: string, namespace: string) {
+  return redactPlainText(value, namespace).value;
+}
+
 function extractTemplateSections(templateMarkdown: string) {
   const sections = templateMarkdown
     .split("\n")
@@ -71,7 +76,9 @@ function renderEvidence(artifacts: HttpArtifactRow[]) {
 
   return artifacts
     .map((artifact, index) => {
-      const evidence = artifact.rawInput ?? artifact.redactedOutput ?? "No redacted evidence available.";
+      const evidenceSource =
+        artifact.redactedOutput ?? artifact.rawInput ?? "No redacted evidence available.";
+      const evidence = safeEvidence(evidenceSource, `report.evidence.${index + 1}`);
       const redactedFields =
         artifact.redactedFields.length > 0
           ? artifact.redactedFields.map((field) => `\`${safeText(field)}\``).join(", ")

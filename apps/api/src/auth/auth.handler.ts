@@ -34,12 +34,7 @@ export const authRoutes = new Elysia({ name: "auth-routes" })
       };
     }
 
-    return success({
-      user: toSafeUser(currentSession.user),
-      session: {
-        expiresAt: currentSession.session.expiresAt,
-      },
-    });
+    return success(toSafeUser(currentSession.user));
   })
   .all("/api/v1/auth/*", ({ request, set }) => {
     set.headers["Cache-Control"] = "no-store";
