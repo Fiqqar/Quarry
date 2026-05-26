@@ -3,6 +3,7 @@ export const SENSITIVE_FIELDS = [
   "cookie",
   "set-cookie",
   "x-api-key",
+  "api-key",
   "x-auth-token",
   "x-csrf-token",
   "access_token",
@@ -24,4 +25,3 @@ export const REDACTED_VALUE = "[REDACTED]";
 export const RAW_HTTP_INPUT_MAX_LENGTH = 200_000;
 
 export type SensitiveField = (typeof SENSITIVE_FIELDS)[number];
-

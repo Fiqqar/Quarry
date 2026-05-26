@@ -105,33 +105,33 @@
 
 ## HTTP Parser and Redaction
 
-- [ ] Create sensitive field list
-- [ ] Create redaction utility
-- [ ] Redact headers case-insensitively
-- [ ] Redact JSON body keys
-- [ ] Redact query params
-- [ ] Create raw HTTP request parser
-- [ ] Create raw HTTP response parser
-- [ ] Create request-response pair parser
-- [ ] Handle malformed input safely
-- [ ] Return parsed preview
-- [ ] Return redacted fields list
-- [ ] Add max input size limit
-- [ ] Ensure raw artifacts are not logged
+- [x] Create sensitive field list
+- [x] Create redaction utility
+- [x] Redact headers case-insensitively
+- [x] Redact JSON body keys
+- [x] Redact query params
+- [x] Create raw HTTP request parser
+- [x] Create raw HTTP response parser
+- [x] Create request-response pair parser
+- [x] Handle malformed input safely
+- [x] Return parsed preview
+- [x] Return redacted fields list
+- [x] Add max input size limit
+- [x] Ensure raw artifacts are not logged
 
 ## HTTP Artifacts API
 
-- [ ] Create HTTP artifact validation schema
-- [ ] Create HTTP artifact repository
-- [ ] Create HTTP artifact service
-- [ ] Create HTTP artifact controller
-- [ ] Create HTTP artifact routes
+- [x] Create HTTP artifact validation schema
+- [x] Create HTTP artifact repository
+- [x] Create HTTP artifact service
+- [x] Create HTTP artifact controller
+- [x] Create HTTP artifact routes
 - [ ] Add parse endpoint
-- [ ] Add save artifact endpoint
-- [ ] Add list artifacts by finding
-- [ ] Add delete artifact
-- [ ] Ensure finding belongs to current user
-- [ ] Ensure artifact belongs to current user
+- [x] Add save artifact endpoint
+- [x] Add list artifacts by finding
+- [x] Add delete artifact
+- [x] Ensure finding belongs to current user
+- [x] Ensure artifact belongs to current user
 
 ## Report Templates
 
