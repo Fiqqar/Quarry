@@ -4,6 +4,7 @@ import { errorHandler } from "./common/errors/error-handler";
 import { requestId } from "./common/middleware/request-id";
 import { success } from "./common/response/success";
 import { cors } from "./config/cors";
+import { findingRoutes } from "./modules/findings/finding.routes";
 import { healthRoutes } from "./modules/health/health.routes";
 import { programRoutes } from "./modules/programs/program.routes";
 
@@ -18,4 +19,4 @@ export const app = new Elysia()
     }),
   )
   .use(authRoutes)
-  .group("/api/v1", (api) => api.use(healthRoutes).use(programRoutes));
+  .group("/api/v1", (api) => api.use(healthRoutes).use(programRoutes).use(findingRoutes));

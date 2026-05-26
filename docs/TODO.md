@@ -89,19 +89,19 @@
 
 ## Findings API
 
-- [ ] Create finding validation schema
-- [ ] Create finding repository
-- [ ] Create finding service
-- [ ] Create finding controller
-- [ ] Create finding routes
-- [ ] Add list findings
-- [ ] Add finding filters
-- [ ] Add create finding
-- [ ] Add get finding detail
-- [ ] Add update finding
-- [ ] Add delete finding
-- [ ] Validate program belongs to current user
-- [ ] Ensure all queries are scoped by `user_id`
+- [x] Create finding validation schema
+- [x] Create finding repository
+- [x] Create finding service
+- [x] Create finding controller
+- [x] Create finding routes
+- [x] Add list findings
+- [x] Add finding filters
+- [x] Add create finding
+- [x] Add get finding detail
+- [x] Add update finding
+- [x] Add delete finding
+- [x] Validate program belongs to current user
+- [x] Ensure all queries are scoped by `user_id`
 
 ## HTTP Parser and Redaction
 
