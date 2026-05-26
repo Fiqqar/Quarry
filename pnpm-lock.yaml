@@ -26,6 +26,9 @@ importers:
       '@quarry/db':
         specifier: workspace:^
         version: link:../../packages/db
+      '@quarry/shared':
+        specifier: workspace:^
+        version: link:../../packages/shared
       better-auth:
         specifier: ^1.6.11
         version: 1.6.11(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(@types/pg@8.20.0)(bun-types@1.3.14)(kysely@0.28.17)(pg@8.21.0))(pg@8.21.0)(vue@3.5.34(typescript@6.0.3))

@@ -75,17 +75,17 @@
 
 ## Programs API
 
-- [ ] Create program validation schema
-- [ ] Create program repository
-- [ ] Create program service
-- [ ] Create program controller
-- [ ] Create program routes
-- [ ] Add list programs
-- [ ] Add create program
-- [ ] Add get program detail
-- [ ] Add update program
-- [ ] Add delete program
-- [ ] Ensure all queries are scoped by `user_id`
+- [x] Create program validation schema
+- [x] Create program repository
+- [x] Create program service
+- [x] Create program controller
+- [x] Create program routes
+- [x] Add list programs
+- [x] Add create program
+- [x] Add get program detail
+- [x] Add update program
+- [x] Add delete program
+- [x] Ensure all queries are scoped by `user_id`
 
 ## Findings API
 

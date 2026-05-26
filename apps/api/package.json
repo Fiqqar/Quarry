@@ -10,6 +10,7 @@
   "dependencies": {
     "@better-auth/drizzle-adapter": "^1.6.11",
     "@quarry/db": "workspace:^",
+    "@quarry/shared": "workspace:^",
     "better-auth": "^1.6.11",
     "elysia": "latest"
   },

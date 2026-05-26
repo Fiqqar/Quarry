@@ -5,6 +5,7 @@ import { requestId } from "./common/middleware/request-id";
 import { success } from "./common/response/success";
 import { cors } from "./config/cors";
 import { healthRoutes } from "./modules/health/health.routes";
+import { programRoutes } from "./modules/programs/program.routes";
 
 export const app = new Elysia()
   .use(requestId)
@@ -17,4 +18,4 @@ export const app = new Elysia()
     }),
   )
   .use(authRoutes)
-  .group("/api/v1", (api) => api.use(healthRoutes));
+  .group("/api/v1", (api) => api.use(healthRoutes).use(programRoutes));
