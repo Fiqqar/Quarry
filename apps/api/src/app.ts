@@ -8,6 +8,8 @@ import { findingRoutes } from "./modules/findings/finding.routes";
 import { healthRoutes } from "./modules/health/health.routes";
 import { httpArtifactRoutes } from "./modules/http-artifacts/http-artifact.routes";
 import { programRoutes } from "./modules/programs/program.routes";
+import { reportTemplateRoutes } from "./modules/report-templates/report-template.routes";
+import { reportRoutes } from "./modules/reports/report.routes";
 
 export const app = new Elysia()
   .use(requestId)
@@ -21,5 +23,11 @@ export const app = new Elysia()
   )
   .use(authRoutes)
   .group("/api/v1", (api) =>
-    api.use(healthRoutes).use(programRoutes).use(findingRoutes).use(httpArtifactRoutes),
+    api
+      .use(healthRoutes)
+      .use(programRoutes)
+      .use(findingRoutes)
+      .use(httpArtifactRoutes)
+      .use(reportTemplateRoutes)
+      .use(reportRoutes),
   );

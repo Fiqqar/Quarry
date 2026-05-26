@@ -135,36 +135,36 @@
 
 ## Report Templates
 
-- [ ] Create template seed data
-- [ ] Add IDOR template
-- [ ] Add Broken Function Level Authorization template
-- [ ] Add Authentication Bypass template
-- [ ] Add Stored XSS template
-- [ ] Add Reflected XSS template
-- [ ] Add SQL Injection template
-- [ ] Add SSRF template
-- [ ] Add Information Disclosure template
-- [ ] Add Race Condition template
-- [ ] Add Business Logic Flaw template
-- [ ] Add Missing Rate Limit template
-- [ ] Add Account Takeover template
-- [ ] Add Open Redirect template
-- [ ] Add CSRF template
-- [ ] Add File Upload Vulnerability template
-- [ ] Add Mass Assignment template
-- [ ] Add list templates endpoint
+- [x] Create template seed data
+- [x] Add IDOR template
+- [x] Add Broken Function Level Authorization template
+- [x] Add Authentication Bypass template
+- [x] Add Stored XSS template
+- [x] Add Reflected XSS template
+- [x] Add SQL Injection template
+- [x] Add SSRF template
+- [x] Add Information Disclosure template
+- [x] Add Race Condition template
+- [x] Add Business Logic Flaw template
+- [x] Add Missing Rate Limit template
+- [x] Add Account Takeover template
+- [x] Add Open Redirect template
+- [x] Add CSRF template
+- [x] Add File Upload Vulnerability template
+- [x] Add Mass Assignment template
+- [x] Add list templates endpoint
 
 ## Report Generator
 
-- [ ] Create markdown renderer
-- [ ] Inject finding fields into template
-- [ ] Include affected URL and method
-- [ ] Include severity and priority
-- [ ] Include HTTP artifacts as evidence
-- [ ] Generate markdown report
-- [ ] Save generated report
-- [ ] Add latest report endpoint
-- [ ] Add export markdown endpoint
+- [x] Create markdown renderer
+- [x] Inject finding fields into template
+- [x] Include affected URL and method
+- [x] Include severity and priority
+- [x] Include HTTP artifacts as evidence
+- [x] Generate markdown report
+- [x] Save generated report
+- [x] Add latest report endpoint
+- [x] Add export markdown endpoint
 
 ## Frontend Foundation
 
