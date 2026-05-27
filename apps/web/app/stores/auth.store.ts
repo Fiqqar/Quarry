@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import type { AuthUser, LoginInput, RegisterInput } from "~/types/auth";
 import { ApiClientError, toSafeErrorMessage } from "~/utils/api-error";
+import { resolveApiUrl } from "~/utils/api-url";
 
 type MaybeMeResponse = AuthUser | { user: AuthUser };
 
@@ -50,25 +51,28 @@ function readAuthErrorMessage(data: unknown, fallback: string) {
 
 export const useAuthStore = defineStore("auth", () => {
   const api = useApi();
-  const config = useRuntimeConfig();
   const user = ref<AuthUser | null>(null);
   const loading = ref(false);
   const initialized = ref(false);
   const error = ref<string | null>(null);
   const isAuthenticated = computed(() => Boolean(user.value));
 
-  function authUrl(path: string) {
-    return `${config.public.apiBaseUrl.replace(/\/$/, "")}${path}`;
-  }
-
   async function authRequest(path: string, body?: Record<string, unknown>, fallback = "Auth request failed.") {
-    const response = await $fetch.raw<unknown>(authUrl(path), {
-      body,
-      credentials: "include",
-      ignoreResponseError: true,
-      method: "POST",
-      timeout: 8_000,
-    });
+    const response = await $fetch
+      .raw<unknown>(resolveApiUrl(path), {
+        body,
+        credentials: "include",
+        ignoreResponseError: true,
+        method: "POST",
+        timeout: 8_000,
+      })
+      .catch(() => {
+        throw new ApiClientError(
+          "Unable to reach the API. Check that the backend is running.",
+          "API_UNREACHABLE",
+          0,
+        );
+      });
 
     if (response.status >= 400) {
       throw new ApiClientError(readAuthErrorMessage(response._data, fallback), "AUTH_ERROR", response.status);

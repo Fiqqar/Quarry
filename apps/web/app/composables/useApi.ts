@@ -1,6 +1,7 @@
 import type { FetchOptions } from "ofetch";
 import type { ApiEnvelope, ApiResult } from "~/types/api";
 import { ApiClientError } from "~/utils/api-error";
+import { resolveApiUrl } from "~/utils/api-url";
 
 type HttpMethod = "GET" | "POST" | "PATCH" | "DELETE";
 type ApiRequestBody = BodyInit | Record<string, unknown> | null;
@@ -13,34 +14,33 @@ type ApiRequestOptions = {
   headers?: HeadersInit;
 };
 
-function resolveApiUrl(baseUrl: string, path: string) {
-  const normalizedBaseUrl = baseUrl.replace(/\/$/, "");
-  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-
-  return `${normalizedBaseUrl}${normalizedPath}`;
-}
-
 export function useApi() {
-  const config = useRuntimeConfig();
-  const apiBaseUrl = config.public.apiBaseUrl;
   const serverHeaders = import.meta.server ? useRequestHeaders(["cookie"]) : undefined;
 
   async function request<TData, TMeta = unknown>(
     path: string,
     options: ApiRequestOptions = {},
   ): Promise<ApiResult<TData, TMeta>> {
-    const response = await $fetch.raw<ApiEnvelope<TData, TMeta>>(resolveApiUrl(apiBaseUrl, path), {
-      body: options.body,
-      credentials: "include",
-      headers: {
-        ...serverHeaders,
-        ...options.headers,
-      },
-      ignoreResponseError: true,
-      method: options.method ?? "GET",
-      query: options.query,
-      timeout: API_TIMEOUT_MS,
-    } satisfies FetchOptions);
+    const response = await $fetch
+      .raw<ApiEnvelope<TData, TMeta>>(resolveApiUrl(path), {
+        body: options.body,
+        credentials: "include",
+        headers: {
+          ...serverHeaders,
+          ...options.headers,
+        },
+        ignoreResponseError: true,
+        method: options.method ?? "GET",
+        query: options.query,
+        timeout: API_TIMEOUT_MS,
+      } satisfies FetchOptions)
+      .catch(() => {
+        throw new ApiClientError(
+          "Unable to reach the API. Check that the backend is running.",
+          "API_UNREACHABLE",
+          0,
+        );
+      });
     const envelope = response._data;
 
     if (!envelope || typeof envelope !== "object" || !("success" in envelope)) {
