@@ -168,27 +168,27 @@
 
 ## Frontend Foundation
 
-- [ ] Initialize Nuxt app
-- [ ] Install Tailwind
-- [ ] Configure API base URL
-- [ ] Create app layout
-- [ ] Create auth layout
-- [ ] Create dashboard layout
-- [ ] Create sidebar
-- [ ] Create topbar
-- [ ] Create common components
-- [ ] Create API composable
+- [x] Initialize Nuxt app
+- [x] Install Tailwind
+- [x] Configure API base URL
+- [x] Create app layout
+- [x] Create auth layout
+- [x] Create dashboard layout
+- [x] Create sidebar
+- [x] Create topbar
+- [x] Create common components
+- [x] Create API composable
 
 ## Frontend Auth
 
-- [ ] Create login page
-- [ ] Create register page
-- [ ] Create auth store
-- [ ] Create auth composable
-- [ ] Add auth middleware
-- [ ] Add guest middleware
-- [ ] Add logout action
-- [ ] Show user in topbar
+- [x] Create login page
+- [x] Create register page
+- [x] Create auth store
+- [x] Create auth composable
+- [x] Add auth middleware
+- [x] Add guest middleware
+- [x] Add logout action
+- [x] Show user in topbar
 
 ## Frontend Programs
 
