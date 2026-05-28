@@ -192,29 +192,29 @@
 
 ## Frontend Programs
 
-- [ ] Create program list page
+- [x] Create program list page
 - [ ] Create program detail page
-- [ ] Create program form
-- [ ] Create program card
-- [ ] Create program composable
-- [ ] Add create program flow
-- [ ] Add edit program flow
-- [ ] Add delete program confirmation
+- [x] Create program form
+- [x] Create program card
+- [x] Create program composable
+- [x] Add create program flow
+- [x] Add edit program flow
+- [x] Add delete program confirmation
 
 ## Frontend Findings
 
-- [ ] Create findings list page
+- [x] Create findings list page
 - [ ] Create new finding page
 - [ ] Create finding detail page
-- [ ] Create finding form
-- [ ] Create finding card
-- [ ] Create finding filters
-- [ ] Create severity badge
-- [ ] Create status badge
-- [ ] Create priority badge
-- [ ] Add create finding flow
-- [ ] Add edit finding flow
-- [ ] Add delete finding confirmation
+- [x] Create finding form
+- [x] Create finding card
+- [x] Create finding filters
+- [x] Create severity badge
+- [x] Create status badge
+- [x] Create priority badge
+- [x] Add create finding flow
+- [x] Add edit finding flow
+- [x] Add delete finding confirmation
 
 ## Frontend HTTP Evidence
 
